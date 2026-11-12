@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Leave Management System</title>
+
+    <link rel="stylesheet" href="app.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Leave Management System</h1>
+
+        <!-- Login Section -->
+        <div id="login-section" class="form-section">
+            <h2>STUDENT LOGIN</h2>
+
+            <form id="login-form">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <span class="field-error" data-error-for="email"></span>
+
+                <label for="student-password">Password:</label>
+                <input type="password" id="student-password" name="password" required>
+                <span class="field-error" data-error-for="password"></span>
+
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <div class="form-feedback" id="student-login-feedback" role="alert" aria-live="polite"></div>
+
+            <p>
+                Don't have an account?
+                <button type="button" id="show-registration" class="link-btn">
+                    Create User
+                </button>
+                <button type="button" id="show-admin-login" class="link-btn">
+                    Staff Login
+                </button>
+            </p>
+        </div>
+
+        <div id="admin-login-section" class="form-section" style="display: none;">
+            <h2>Staff Login</h2>
+
+            <form id="admin-login-form">
+                <label for="admin-email">Staff Email:</label>
+                <input type="email" id="admin-email" name="email" required>
+                <span class="field-error" data-error-for="email"></span>
+
+                <label for="admin-password">Password:</label>
+                <input type="password" id="admin-password" name="password" required>
+                <span class="field-error" data-error-for="password"></span>
+
+                <button type="submit" class="btn">Login as Staff</button>
+            </form>
+            <div class="form-feedback" id="admin-login-feedback" role="alert" aria-live="polite"></div>
+            <p>
+                Don't have a staff account?
+                <button type="button" id="show-admin-setup" class="link-btn">
+                    Create Staff Account
+                </button>
+            </p>
+
+            <button type="button" id="back-to-login" class="link-btn">
+                Back to User Login
+            </button>
+        </div>
+
+        <div id="admin-setup-section" class="form-section" style="display: none;">
+            <h2>Create Staff Account</h2>
+            <form id="admin-setup-form">
+                <label for="setup-username">Username:</label>
+                <input type="text" id="setup-username" name="username" required>
+                <span class="field-error" data-error-for="username"></span>
+
+                <label for="setup-email">Email:</label>
+                <input type="email" id="setup-email" name="email" required>
+                <span class="field-error" data-error-for="email"></span>
+
+                <label for="setup-password">Password (at least 8 characters):</label>
+                <input type="password" id="setup-password" name="password" minlength="8" required>
+                <span class="field-error" data-error-for="password"></span>
+
+                <label for="setup-department">Department:</label>
+                <input type="text" id="setup-department" name="department" required>
+                <span class="field-error" data-error-for="department"></span>
+
+                <label for="setup-designation">Designation:</label>
+                <input type="text" id="setup-designation" name="designation" required>
+                <span class="field-error" data-error-for="designation"></span>
+
+                <button type="submit" class="btn">Create Staff Account</button>
+            </form>
+            <div class="form-feedback" id="admin-setup-feedback" role="alert" aria-live="polite"></div>
+            <button type="button" id="back-from-setup" class="link-btn">
+                Back to Login
+            </button>
+        </div>
+
+        <!-- Registration Section -->
+        <div id="registration-section" class="form-section" style="display: none;">
+            <h2>Create User</h2>
+
+            <form id="registration-form">
+
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <span class="field-error" data-error-for="username"></span>
+
+                <label for="reg-email">Email:</label>
+                <input type="email" id="reg-email" name="email" required>
+                <span class="field-error" data-error-for="email"></span>
+
+                <label for="student-register-password">Password (at least 8 characters):</label>
+                <input type="password" id="student-register-password" name="password" minlength="8" required>
+                <span class="field-error" data-error-for="password"></span>
+
+                <label for="roll-number">Roll Number:</label>
+                <input type="text" id="roll-number" name="rollNumber" required>
+                <span class="field-error" data-error-for="rollNumber"></span>
+
+                <label for="user-department">Department:</label>
+                <input type="text" id="user-department" name="department" required>
+                <span class="field-error" data-error-for="department"></span>
+
+                <label for="casual-leave">Initial Casual Leave:</label>
+                <input type="number" id="casual-leave" name="casualLeave" min="0" step="1" value="0" required>
+                <span class="field-error" data-error-for="casualLeave"></span>
+
+                <label for="medical-leave">Initial Medical Leave:</label>
+                <input type="number" id="medical-leave" name="medicalLeave" min="0" step="1" value="0" required>
+                <span class="field-error" data-error-for="medicalLeave"></span>
+
+                <button type="submit" class="btn">Register</button>
+            </form>
+            <div class="form-feedback" id="registration-feedback" role="alert" aria-live="polite"></div>
+
+            <p>
+                Already have an account?
+                <button type="button" id="show-login" class="link-btn">
+                    Login
+                </button>
+            </p>
+
+            <div id="registration-response" role="status" aria-live="polite"></div>
+        </div>
+
+        <!-- Leave Balance Section -->
+        <div class="balance-section" id="balance-section" style="display: none;">
+            <h2>Leave Balance</h2>
+
+            <p>
+                Welcome, <span id="username-display"></span>
+                (Roll Number: <span id="roll-number-display"></span>)
+            </p>
+
+            <div id="leave-balance">
+                <p>
+                    Casual Leave:
+                    <span id="casual-leave-display">Loading...</span>
+                </p>
+
+                <p>
+                    Medical Leave:
+                    <span id="medical-leave-display">Loading...</span>
+                </p>
+            </div>
+
+            <button type="button" id="refresh-balance" class="btn">
+                Refresh Balance
+            </button>
+
+            <button type="button" id="logout-button" class="btn" style="display: none;">
+                Logout
+            </button>
+            <h3>My Leave Requests</h3>
+            <div class="admin-table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Days</th>
+                            <th>Reason</th>
+                            <th>Submitted</th>
+                            <th>Status</th>
+                            <th>Admin Note</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-leave-requests"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Apply for Leave Section -->
+        <div class="apply-leave-section" id="apply-leave-section" style="display: none;">
+            <h2>Apply for Leave</h2>
+
+            <form id="leave-form">
+
+                <label for="leave-type">Leave Type:</label>
+                <select id="leave-type" name="type" required>
+                    <option value="casual">Casual</option>
+                    <option value="medical">Medical</option>
+                </select>
+
+                <label for="leave-days">Number of Days:</label>
+                <input type="number" id="leave-days" name="days" min="1" step="1" required>
+
+                <label for="leave-reason">Reason:</label>
+                <textarea id="leave-reason" name="reason" maxlength="1000" required></textarea>
+
+                <button type="submit" class="btn">Apply Leave</button>
+            </form>
+        </div>
+
+        <section id="admin-dashboard" class="admin-dashboard" style="display: none;">
+            <div class="admin-heading">
+                <h2>Staff Dashboard</h2>
+                <button type="button" id="admin-logout-button" class="btn">
+                    Logout
+                </button>
+            </div>
+            <p id="admin-profile"></p>
+            <p>View student details and review leave applications.</p>
+            <button type="button" id="refresh-users" class="btn">
+                Refresh Dashboard
+            </button>
+            <h3>Student Details</h3>
+            <div class="admin-table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Roll Number</th>
+                            <th>Department</th>
+                            <th>Casual Leave</th>
+                            <th>Medical Leave</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-users"></tbody>
+                </table>
+            </div>
+
+            <h3>Leave Applications</h3>
+            <div class="admin-table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Department</th>
+                            <th>Type</th>
+                            <th>Days</th>
+                            <th>Reason</th>
+                            <th>Submitted</th>
+                            <th>Status</th>
+                            <th>Admin Note</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-leave-requests"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- General Response Messages -->
+        <div id="response-message" role="status" aria-live="polite"></div>
+        <div id="admin-response-message" role="status" aria-live="polite"></div>
+
+    </div>
+</body>
+
+</html>
